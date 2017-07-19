@@ -1,0 +1,34 @@
+<input type="text" #txtTrainer placeholder="Nombre del entrenador">
+<br>
+<a (click)="newTrainer(txtTrainer.value)" class="btn">Crear nuevo Entrenador</a>
+
+
+<div *ngIf="loading">
+  Loading parcerinis
+</div>
+<div class="container" *ngIf="!loading">
+  <div class="container-wrapper" *ngFor="let trainer of allTrainers ">
+
+    <h1>Entrenador: {{trainer.name}}</h1>
+    <div style="display: -webkit-box;">
+      <h2>Identificacion: {{trainer.id}}</h2>
+    </div>
+    <h3>{{(!trainer.ownedPokemons.length)? 'Upss... Creo que no tiene pokemons': 'Mis pokemones:'}}</h3>
+    <div>
+      <input type="text" #pokemonName placeholder="Pokemon Nombre">
+      <input type="text" #pictureUrl placeholder="Url del pokemon">
+      <button (click)="addNewPokemon(pokemonName.value,pictureUrl.value,trainer.id);">New Pokemon!</button>
+    </div>
+    <ul>
+
+      <li class="pokemons-div" *ngFor="let pokemon of trainer.ownedPokemons ">
+        <h3>{{pokemon.name}}</h3>
+        <div>
+          <img src="{{pokemon.url}}" class="poke-img">
+        </div>
+
+      </li>
+    </ul>
+    <a (click)="deleteTrainer(trainer.id)" class="btn">Eliminar</a>
+  </div>
+</div>
